@@ -1,0 +1,26 @@
+{
+  "name": "colaborativework",
+  "version": "1.0.0",
+  "description": "A colaborative work using javascript technologies as NodeJs with Views Engine",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hernanChain/ColaborativeWork.git"
+  },
+  "keywords": [
+    "Node.js",
+    "ejs",
+    "pug",
+    "handlebars",
+    "express"
+  ],
+  "author": "Valentina Tinjaca, Miguel Palacios, Hernan Cadena",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hernanChain/ColaborativeWork/issues"
+  },
+  "homepage": "https://github.com/hernanChain/ColaborativeWork#readme"
+}
