@@ -7,6 +7,9 @@ const { cartRoutes, productsRoutes } = require('./routes');
 app.set('port', 4000);
 app.set('views', 'views');
 
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.static(path.join(__dirname, 'public')));
+
 app.use('/', cartRoutes);
 app.use('/products', productsRoutes);
 
