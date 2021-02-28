@@ -29,43 +29,34 @@
                                         </tr>
                                     </thead>
                                     <tbody class="tbody">
-                                        <tr>
-                                            <td class="border border-dark text-center">Manzana</td>
-                                            <td class="border border-dark text-center">5</td>
-                                            <td class="border border-dark text-center">$3000</td>
-                                            <td class="border border-dark text-center">$15000</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="border border-dark text-center">Papa</td>
-                                            <td class="border border-dark text-center">10</td>
-                                            <td class="border border-dark text-center">$2000</td>
-                                            <td class="border border-dark text-center">$20000</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="border border-dark text-center">Coco</td>
-                                            <td class="border border-dark text-center">3</td>
-                                            <td class="border border-dark text-center">7000</td>
-                                            <td class="border border-dark text-center">$21000</td>
-                                        </tr>
+                                        <% for (let item of cart) {%>
+                                            <tr>
+                                                <td class="border border-dark text-center"><%= item.name  %></td>
+                                                <td class="border border-dark text-center"><%= item.weight %></td>
+                                                <td class="border border-dark text-center">$<%= item.price %></td>
+                                                <td class="border border-dark text-center">$<%= item.total %></td>
+                                            </tr>
+                                            <% } %>
+                                        
                                     </tbody>
                                     <tfoot>
                                         <tr>
                                             <td Class="border-0"></td>
                                             <td Class="border-0"></td>
                                             <td Class="border border-dark text-center" >Subtotal</td>
-                                            <td class="border border-dark text-center">$45360</td>
+                                            <td class="border border-dark text-center">$<%= subtotal %></td>
                                         </tr>
                                         <tr>
                                             <td Class="border-0"></td>
                                             <td Class="border-0"></td>
                                             <td Class="border border-dark text-center" >iva</td>
-                                            <td class="border border-dark text-center">$45360</td>
+                                            <td class="border border-dark text-center">$<%= iva %></td>
                                         </tr>
                                         <tr>
                                             <td Class="border-0"></td>
                                             <td Class="border-0"></td>
-                                            <td Class="border border-dark text-center" >Total</td>
-                                            <td class="border border-dark text-center">$56000</td>
+                                            <td Class="border border-dark text-center" style="background-color: #BDBDBD;" ><strong>Total</strong></td>
+                                            <td class="border border-dark text-center" style="background-color: #BDBDBD;"><strong>$<%= total %></strong></td>
                                         </tr>
                                     </tfoot>
                                 </table>                           
@@ -81,7 +72,14 @@
                     </div>
                     <div class="row justify-content-end col mb-3">
                         <div class="col-sm-3 justify-content-end">
-                            <a href="/"><button class="button btn btn-success">volver</button></a>
+                            <form action="/backCart" method="post">
+                                <a><button class="button btn btn-success">volver</button></a>
+                            </form>
+                        </div>
+                        <div class="col-sm-3 justify-content-end">
+                            <form action="/cleanCart" method="post">
+                                <a><button class="button btn btn-success">Pagar</button></a>
+                            </form>
                         </div>
                     </div>
                 </div>

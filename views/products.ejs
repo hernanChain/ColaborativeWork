@@ -14,27 +14,23 @@
                     <%- include('partials/menu.ejs') %>
 
                     <div class="card-body " style="border-color: darkred;">
-                        <div class="row col mb-3 justify-content-center">
-                            <div class="col-sm-3">
-                                <input type="text" placeholder="Producto" class="form-control">
-                            </div>
-                            <div class="col-sm-3">
-                                <input type="text" placeholder="Libras" class="form-control">
-                            </div>
-                            <div class="col-sm-3">
-                                <input type="text" placeholder="Precio por Libra" class="form-control">
-                            </div>
+                        <form action="/products/addProduct" method="post">
+                            <div class="row col mb-3 justify-content-center">
+                                <div class="col-sm-3">
+                                    <input name="name" type="text" placeholder="Producto" class="form-control">
+                                </div>
+                                <div class="col-sm-3">
+                                    <input name="stock" type="number" placeholder="Libras" class="form-control">
+                                </div>
+                                <div class="col-sm-3">
+                                    <input name="price" type="number" placeholder="Precio por Libra" class="form-control">
+                                </div>
+                                <div class="col-sm-2">
+                                    <button type="submit" class="btn btn-success" id="btn_add"><img type="image" src="https://image.flaticon.com/icons/png/512/67/67344.png" width="20" /></span></button>                                                
+                                    
+                                </div>
+                            </form>
                             
-                        </div>
-                        <div class="row justify-content-center col mb-3">
-                            <div class="col-sm-2">
-                                <button type="button" class="btn btn-success" id="btn_add"><img type="image" src="https://image.flaticon.com/icons/png/512/67/67344.png" width="40" height="30"/></span></button>                                                
-
-                            </div>
-                            <div class="col-sm-2">
-                                <button type="button" class="btn btn-success" id="btn_update"><img type="image" src="https://image.flaticon.com/icons/png/512/25/25118.png" width="40" height="30"/></span></button>                                                
-
-                            </div>
                         </div>
                         <div class="row col mb-3 row justify-content-center">
                             <div class="col-sm-10">
@@ -48,30 +44,20 @@
                                             </tr>
                                         </thead>
                                         <tbody class="tbody">
-                                            <tr>
-                                                <td class="border border-success text-center">Manzana</td>
-                                                <td class="border border-success text-center">5</td>
-                                                <td class="border border-success text-center">$3000</td>
-                                                <td class="border border-success text-center">
-                                                    <button type="button" class="btn btn-danger"><img type="image" src="https://image.flaticon.com/icons/png/512/1837/1837363.png" width="30" height="20"/></span></button>                                                
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="border border-success text-center">Papa</td>
-                                                <td class="border border-success text-center">10</td>
-                                                <td class="border border-success text-center">$2000</td>
-                                                <td class="border border-success text-center">
-                                                    <button type="button" class="btn btn-danger"><img type="image" src="https://image.flaticon.com/icons/png/512/1837/1837363.png" width="30" height="20"/></span></button>                                                
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="border border-success text-center">Coco</td>
-                                                <td class="border border-success text-center">3</td>
-                                                <td class="border border-success text-center">7000</td>
-                                                <td class="border border-success text-center">
-                                                    <button type="button" class="btn btn-danger"><img type="image" src="https://image.flaticon.com/icons/png/512/1837/1837363.png" width="30" height="20"/></span></button>                                                
-                                                </td>
-                                            </tr>
+                                            <% for(let item of products) {%>
+                                                <tr>
+                                                    <form action="/products/toDelete" method="post">
+                                                        <input type="hidden" name="toDelete" value="<%= item.name %>">
+                                                        <td class="border border-success text-center"><%= item.name %></td>
+                                                        <td class="border border-success text-center"><%= item.stock%></td>
+                                                        <td class="border border-success text-center">$<%= item.price %></td>
+                                                        <td class="border border-success text-center">
+                                                            <button type="submit" class="btn btn-danger"><img type="image" src="https://image.flaticon.com/icons/png/512/1837/1837363.png" width="30" height="20"/></span></button>                                                
+                                                        </td>
+                                                    </form>
+                                                </tr>
+                                                <%}%>
+                                            
                                         </tbody>
                                     </table>
                             </div>
