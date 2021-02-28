@@ -2,7 +2,6 @@ const router = require('express').Router();
 const rootDir = require('../util/path');
 const path = require('path');
 let products = require('../db/products.json');
-
 let cart = require('../db/cart');
 const fs = require('fs');
 
@@ -13,8 +12,8 @@ const total = function () {
   });
   return total;
 };
-
 router.get('/', (req, res) => {
+  products = require('../db/products.json');
   const subtotal = total();
   const iva = subtotal * 0.19;
   const totalReceipt = subtotal + iva;

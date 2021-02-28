@@ -14,16 +14,16 @@ router.get('/', (req, res) => {
 });
 
 router.post('/toDelete', (req, res) => {
-  const newProducts = products.filter((item) => item.name != req.body.toDelete);
-  const data = JSON.stringify(newProducts);
+  products = products.filter((item) => item.name != req.body.toDelete);
+  const data = JSON.stringify(products);
   try {
     fs.writeFileSync(path.join(rootDir, 'db', 'products.json'), data);
   } catch (error) {
     console.error(error);
   }
-  products = newProducts;
   res.redirect('/products');
 });
+
 router.post('/addProduct', (req, res) => {
   const productExists = products.find(
     (product) => product.name.toLowerCase() === req.body.name.toLowerCase(),
@@ -47,4 +47,5 @@ router.post('/addProduct', (req, res) => {
   }
   res.redirect('/products');
 });
-module.exports = { router, products };
+
+module.exports = router;
