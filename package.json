@@ -3,8 +3,13 @@
   "version": "1.0.0",
   "description": "A colaborative work using javascript technologies as NodeJs with Views Engine",
   "main": "index.js",
+  "nodemonConfig": {
+    "ignore": [
+      "./db/*"
+    ]
+  },
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "nodemon index.js --ignore ./db/"
   },
   "repository": {
     "type": "git",

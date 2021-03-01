@@ -1,3 +1,8 @@
 body {
-  background-color:#27AE60;
+  background-color: #27ae60;
+}
+
+.none {
+  text-align: center;
+  font-weight: 500;
 }
