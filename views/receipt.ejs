@@ -31,6 +31,7 @@
                                     <tbody class="tbody">
                                         <% for (let item of cart) {%>
                                             <tr>
+                                                <input type="hidden" name="toDelete1" value="<%= item.name %>">
                                                 <td class="border border-dark text-center"><%= item.name  %></td>
                                                 <td class="border border-dark text-center"><%= item.weight %></td>
                                                 <td class="border border-dark text-center">$<%= item.price %></td>
