@@ -5,6 +5,8 @@ const fs = require('fs');
 let products = require('../db/products.json');
 
 router.get('/', (req, res) => {
+  // products = require('../db/products.json');
+  // console.log("1-----> ",products);
   res.render('products', {
     path: '/products',
     name: 'PRODUCTOS',
@@ -17,10 +19,14 @@ router.post('/toDelete', (req, res) => {
   products = products.filter((item) => item.name != req.body.toDelete);
   const data = JSON.stringify(products);
   try {
-    fs.writeFileSync(path.join(rootDir, 'db', 'products.json'), data);
+    fs.writeFile(path.join(rootDir, 'db', 'products.json'), data, function(err) {
+          if (err) throw err;
+      });
+  
   } catch (error) {
     console.error(error);
   }
+  // console.log("2-----> ",products);
   res.redirect('/products');
 });
 
@@ -45,7 +51,8 @@ router.post('/addProduct', (req, res) => {
   } catch (error) {
     console.error(error);
   }
-  res.redirect('/products');
+  location.reload();
+  res.end('/products');
 });
 
 module.exports = router;

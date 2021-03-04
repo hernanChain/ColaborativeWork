@@ -26,18 +26,15 @@
                                     </select>
                                 </div>
                                 <div class="col-sm-4">
-                                    <input name="weightItem" type="text" placeholder="Libras" class="form-control" min="1" id="weight">
+                                    <input name="weightItem" type="text" placeholder="Libras" class="form-control" min="1" id="weight" required>
                                 </div>
                                 <div class="col-sm-2">
                                     <button type="submit" class="btn btn-success" id="btn_add_cart"><img type="image" src="https://image.flaticon.com/icons/png/512/107/107831.png" width="40" height="30"/></span></button>                                                
                                 </div>
-                                <!-- <span href="/alert" style="display: none;">
-                                </span> -->
                                 <% if (!flag) {%>
                                 <span class="warning">
                                     No puede agregar esa cantidad de libras porque excede la disponibilidad del producto
                                 </span>
-
                                 <% } %>  
                             </div>
                         </form>
