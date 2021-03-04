@@ -4,7 +4,7 @@ const path = require('path');
 let products = require('../db/products.json');
 let cart = require('../db/cart');
 const fs = require('fs');
-// import {alert} from "../public/css/js/alert";
+let weightAllow=true;
 
 const total = function () {
   let total = 0;
@@ -21,6 +21,7 @@ router.get('/', (req, res) => {
   res.render('cart', {
     path: '/cart',
     products: products,
+    flag: weightAllow,
     name: 'CARRITO DE COMPRAS',
     cart: cart,
     isThereCart: cart.length > 0,
@@ -37,20 +38,17 @@ router.get('/receipt', (req, res) => {
   res.render('receipt', {
     cart: cart,
     subtotal: subtotal,
-    iva: iva,
-    total: totalReceipt,
+    iva: iva.toFixed(2),
+    total: totalReceipt.toFixed(2),
   });
 });
 
 router.post('/cleanCart', (req, res) => {
   products = require('../db/products.json');
-  // console.log(cart);
   for(var i = 0; i < cart.length; i+=1){
-    // console.log(products);
     products.forEach(function(product1){
       if (product1.name===cart[i].name) {
         product1.stock -= parseInt(cart[i].weight);
-        // console.log("algo ---> ",cart[i].weight);
       }
     })
 
@@ -68,9 +66,9 @@ router.post('/cleanCart', (req, res) => {
 router.post('/addItem', (req, res) => {
   const itemAdded = products.find((item) => item.name === req.body.itemSelected);
   const itemInCart = cart.find((item) => item.name === req.body.itemSelected);
-  console.log(itemAdded);
+  // console.log(itemAdded);
   // console.log(itemInCart.weight);
-  
+  weightAllow=true;
   if (!itemInCart ) {
       if (itemAdded.stock>=parseInt(req.body.weightItem)) {
         const newItem = {
@@ -81,20 +79,18 @@ router.post('/addItem', (req, res) => {
       };
       cart.push(newItem);
     } else {
-      // confirm("algo");
-      // res.end('alert("algo")');
-
+//primer ingreso
+      weightAllow=false;
     }
   } else {
     if (itemAdded.stock>=(parseInt(itemInCart.weight) + parseInt(req.body.weightItem))) {
-      itemInCart.weight = parseInt(itemInCart.weight) + parseInt(req.body.weightItem);
-      itemInCart.total += parseInt(req.body.weightItem) * itemAdded.price;
+        itemInCart.weight = parseInt(itemInCart.weight) + parseInt(req.body.weightItem);
+        itemInCart.total += parseInt(req.body.weightItem) * itemAdded.price;
     } else {
-      // res.redirect('/alert');
-      // res.redirect('/alert("algo")');
+//primer ingreso
+      weightAllow=false;
     }
   }
-  
   res.redirect('/');
 });
 

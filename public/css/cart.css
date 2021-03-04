@@ -6,3 +6,8 @@ body {
   text-align: center;
   font-weight: 500;
 }
+
+.warning{
+  text-align: center;
+  color: red;
+}

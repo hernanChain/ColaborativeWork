@@ -33,6 +33,12 @@
                                 </div>
                                 <!-- <span href="/alert" style="display: none;">
                                 </span> -->
+                                <% if (!flag) {%>
+                                <span class="warning">
+                                    No puede agregar esa cantidad de libras porque excede la disponibilidad del producto
+                                </span>
+
+                                <% } %>  
                             </div>
                         </form>
                         <% if (isThereCart){ %>
