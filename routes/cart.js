@@ -60,7 +60,7 @@ router.post('/cleanCart', (req, res) => {
     }
   }
   cart = [];
-  res.redirect('/products');
+  res.redirect('/');
 });
 
 router.post('/addItem', (req, res) => {
