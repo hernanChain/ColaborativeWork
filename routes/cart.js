@@ -14,14 +14,13 @@ const total = function () {
   return total;
 };
 router.get('/', (req, res) => {
-  console.log('hola');
-  const products = require('../db/products.json');
+  let products = require(path.join(__dirname,'\\..\\db\\','\products.json'));
   const subtotal = total();
   const iva = subtotal * 0.19;
   const totalReceipt = subtotal + iva;
   res.render('cart', {
     path: '/cart',
-    products: require('../db/products.json'),
+    products: products,
     flag: weightAllow,
     name: 'CARRITO DE COMPRAS',
     cart: cart,
@@ -45,7 +44,7 @@ router.get('/receipt', (req, res) => {
 });
 
 router.post('/cleanCart', (req, res) => {
-  const products = require('../db/products.json');
+  let products = require(path.join(__dirname,'\\..\\db\\','\products.json'));
   for(var i = 0; i < cart.length; i+=1){
     products.forEach(function(product1){
       if (product1.name===cart[i].name) {
@@ -55,17 +54,17 @@ router.post('/cleanCart', (req, res) => {
 
     const data = JSON.stringify(products);
     try {
-      fs.writeFileSync(path.join(rootDir, 'db', 'products.json'), data);
+      fs.writeFileSync(path.join(__dirname,'\\..\\db\\','\products.json'), data);
     } catch (error) {
       console.error(error);
     }
   }
   cart = [];
-  res.redirect('/');
+  res.redirect('/cart');
 });
 
 router.post('/addItem', (req, res) => {
-  const products = require('../db/products.json');
+  const products = require(path.join(__dirname,'\\..\\db\\','\products.json'));
   const itemAdded = products.find((item) => item.name === req.body.itemSelected);
   const itemInCart = cart.find((item) => item.name === req.body.itemSelected);
   // console.log(itemAdded);
@@ -93,23 +92,16 @@ router.post('/addItem', (req, res) => {
       weightAllow=false;
     }
   }
-  res.redirect('/');
+  res.redirect('/cart');
 });
-
-// router.post('/alert', (req, res) => {
-//   res.render('cart',{
-//     path:'/alert',
-//     msg_alert:"No puede agregar  libras de \n porque excede la disponibilidad del producto"
-//   });
-// });
 
 router.post('/cleanItem', (req, res) => {
   const newCart = cart.filter((item) => item.name != req.body.toRemove);
   cart = newCart;
-  res.redirect('/');
+  res.redirect('/cart');
 });
 router.post('/backCart', (req, res) => {
-  res.redirect('/');
+  res.redirect('/cart');
 });
 
 module.exports = router;

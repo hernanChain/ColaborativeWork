@@ -2,11 +2,9 @@ const router = require('express').Router();
 const rootDir = require('../util/path');
 const path = require('path');
 const fs = require('fs');
-let products = require('../db/products.json');
+let products = require(path.join(__dirname,'\\..\\db\\','\products.json'));
 
 router.get('/', (req, res) => {
-  // products = require('../db/products.json');
-  // console.log("1-----> ",products);
   res.render('products', {
     path: '/products',
     name: 'PRODUCTOS',
@@ -16,17 +14,18 @@ router.get('/', (req, res) => {
 });
 
 router.post('/toDelete', (req, res) => {
+  const productExists = products.find(
+    (product) => product.name === req.body.toDelete,
+  );
+  if (productExists) {
+    productExists.stock = parseInt(0);
+  }
   products = products.filter((item) => item.name != req.body.toDelete);
   const data = JSON.stringify(products);
-  try {
-    console.log(data);
-    fs.writeFileSync(path.join(rootDir, 'db', 'products.json'), data);
-  
-  } catch (error) {
-    console.error(error);
-  }
-  // console.log("2-----> ",products);
-  res.redirect('/products');
+  fs.writeFile(path.join(__dirname,'\\..\\db\\','\products.json'), data, function(err) {
+    if(err) return console.error(err);
+  });
+  res.redirect('/');
 });
 
 router.post('/addProduct', (req, res) => {
@@ -51,7 +50,7 @@ router.post('/addProduct', (req, res) => {
     console.error(error);
   }
   // location.reload();
-  res.redirect('/products');
+  res.redirect('/');
 });
 
 module.exports = router;

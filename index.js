@@ -12,8 +12,8 @@ app.set('views', 'views');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', cartRoutes);
-app.use('/products', productsRoutes);
+app.use('/cart', cartRoutes);
+app.use('/', productsRoutes);
 
 app.use((req, res, next) => {
   // res.send('404: Page Not Found');

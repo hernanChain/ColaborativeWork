@@ -14,7 +14,7 @@
                     <%- include('partials/menu.ejs') %>
 
                     <div class="card-body " style="border-color: darkred;">
-                        <form action="/products/addProduct" method="post">
+                        <form action="/addProduct" method="post">
                             <div class="row col mb-3 justify-content-center">
                                 <div class="col-sm-3">
                                     <input name="name" type="text" placeholder="Producto" class="form-control" required>
@@ -46,7 +46,7 @@
                                 <tbody class="tbody">
                                     <% for(let item of products) {%>
                                         <tr>
-                                            <form action="/products/toDelete" method="post">
+                                            <form action="/toDelete" method="post">
                                                 <input type="hidden" name="toDelete" value="<%= item.name %>">
                                                 <td class="border border-success text-center"><%= item.name %></td>
                                                 <td class="border border-success text-center"><%= item.stock%></td>
