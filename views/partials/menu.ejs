@@ -4,10 +4,10 @@
             <ul class="nav nav-tabs">
                 <li class="nav-item">
                     <!-- <a class="nav-link" class="<%= path === '/cart' ? 'active' : '' %>" href="/">Carrito de compras</a> -->
-                    <a class="nav-link <%= path === '/cart' ? 'active' : '' %>"  href="/">Carrito de compras</a>
+                    <a class="nav-link <%= path === '/cart' ? 'active' : '' %>"  href="/cart">Carrito de compras</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link <%= path === '/products' ? 'active' : '' %> <%= isThereCart ? 'disabled' : ''  %>" href="/products">Productos</a>
+                    <a class="nav-link <%= path === '/products' ? 'active' : '' %> <%= isThereCart ? 'disabled' : ''  %>" href="/">Productos</a>
                 </li>
                 
             </ul>

@@ -2,11 +2,9 @@ const router = require('express').Router();
 const rootDir = require('../util/path');
 const path = require('path');
 const fs = require('fs');
-let products = require('../db/products.json');
+let products = require(path.join(__dirname,'\\..\\db\\','\products.json'));
 
 router.get('/', (req, res) => {
-  // products = require('../db/products.json');
-  // console.log("1-----> ",products);
   res.render('products', {
     path: '/products',
     name: 'PRODUCTOS',
@@ -15,26 +13,29 @@ router.get('/', (req, res) => {
   });
 });
 
-router.post('/toDelete', (req, res) => {
-  products = products.filter((item) => item.name != req.body.toDelete);
-  const data = JSON.stringify(products);
-  try {
-    fs.writeFile(path.join(rootDir, 'db', 'products.json'), data, function(err) {
-          if (err) throw err;
-      });
-  
-  } catch (error) {
-    console.error(error);
-  }
-  // console.log("2-----> ",products);
-  res.redirect('/products');
-});
+// router.post('/toDelete', (req, res) => {
+//   const productExists = products.find(
+//     (product) => product.name === req.body.toDelete,
+//   );
+//   if (productExists) {
+//     productExists.stock = parseInt(0);
+//   }
+//   products = products.filter((item) => item.name != req.body.toDelete);
+//   const data = JSON.stringify(products);
+//   fs.writeFile(path.join(__dirname,'\\..\\db\\','\products.json'), data, function(err) {
+//     if(err) return console.error(err);
+//   });
+//   console.log('delete---> ',products);
+
+//   res.redirect('/');
+// });
 
 router.post('/addProduct', (req, res) => {
   const productExists = products.find(
     (product) => product.name.toLowerCase() === req.body.name.toLowerCase(),
   );
   if (!productExists) {
+    // console.log(true);
     const newProduct = {
       name: req.body.name,
       price: parseInt(req.body.price),
@@ -45,14 +46,14 @@ router.post('/addProduct', (req, res) => {
     productExists.stock += parseInt(req.body.stock);
     productExists.price = parseInt(req.body.price);
   }
+
   const data = JSON.stringify(products);
-  try {
-    fs.writeFileSync(path.join(rootDir, 'db', 'products.json'), data);
-  } catch (error) {
-    console.error(error);
-  }
-  location.reload();
-  res.end('/products');
+
+  fs.writeFile(path.join(__dirname,'\\..\\db\\','\products.json'), data, function(err) {
+    if(err) return console.error(err);
+  });
+  // console.log('add---> ',products);
+  res.redirect('/');
 });
 
 module.exports = router;

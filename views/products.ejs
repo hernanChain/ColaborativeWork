@@ -14,7 +14,7 @@
                     <%- include('partials/menu.ejs') %>
 
                     <div class="card-body " style="border-color: darkred;">
-                        <form action="/products/addProduct" method="post">
+                        <form action="/addProduct" method="post">
                             <div class="row col mb-3 justify-content-center">
                                 <div class="col-sm-3">
                                     <input name="name" type="text" placeholder="Producto" class="form-control" required>
@@ -40,20 +40,20 @@
                                         <th class="border border-success text-center" style="color: darkred;">Producto</th>
                                         <th class="border border-success text-center" style="color: darkred;">Libras disponibles</th>
                                         <th class="border border-success text-center" style="color: darkred;">Precio/lb</th>
-                                        <th class="border border-success text-center" style="color: darkred;">Eliminar</th>
+                                        <!-- <th class="border border-success text-center" style="color: darkred;">Eliminar</th> -->
                                     </tr>
                                 </thead>
                                 <tbody class="tbody">
                                     <% for(let item of products) {%>
                                         <tr>
-                                            <form action="/products/toDelete" method="post">
+                                            <form action="/toDelete" method="post">
                                                 <input type="hidden" name="toDelete" value="<%= item.name %>">
                                                 <td class="border border-success text-center"><%= item.name %></td>
                                                 <td class="border border-success text-center"><%= item.stock%></td>
                                                 <td class="border border-success text-center">$<%= item.price %></td>
-                                                <td class="border border-success text-center">
+                                                <!-- <td class="border border-success text-center">
                                                     <button type="submit" class="btn btn-danger"><img type="image" src="https://image.flaticon.com/icons/png/512/1837/1837363.png" width="30" height="20"/></span></button>                                                
-                                                </td>
+                                                </td> -->
                                             </form>
                                         </tr>
                                     <%}%>         

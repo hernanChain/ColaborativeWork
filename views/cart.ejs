@@ -14,16 +14,18 @@
                 <div class="card" style="border-color: darkred;">
                    <%- include('partials/menu.ejs') %>
                     <div class="card-body " style="border-color: darkred;">
-                        <form action="/addItem" method="post">
+                        <form action="/cart/addItem" method="post">
                             <div class="row col mb-3 justify-content-center">
                                 <div class="col-sm-4">
-                                    <select class="form-control form-select" name="itemSelected">
-                                        <% for (let product of products) {%>
-                                            <% if (product.stock>0) {%>
-                                                <option><%= product.name %></option>
+                                    <form class="/products/toDelete">
+                                        <select class="form-control form-select" name="itemSelected">
+                                            <% for (let product of products) {%>
+                                                <% if (product.stock>0) {%>
+                                                    <option><%= product.name %></option>
+                                                <% } %>
                                             <% } %>
-                                        <% } %>
-                                    </select>
+                                        </select>    
+                                    </form>
                                 </div>
                                 <div class="col-sm-4">
                                     <input name="weightItem" type="text" placeholder="Libras" class="form-control" min="1" id="weight" required>
@@ -55,7 +57,7 @@
                                             <tbody class="tbody">
                                                 <% for (let item of cart) {%>
                                                     <tr>
-                                                        <form action="/cleanItem" method="post">
+                                                        <form action="/cart/cleanItem" method="post">
                                                             <input name="toRemove" type="hidden" value="<%= item.name %>" >
                                                             <td name="name" class="border border-success text-center" id="name"><%= item.name %></td>
                                                             <td class="border border-success text-center" id="weightCart"><%= item.weight %></td>
@@ -97,7 +99,7 @@
                             <div class="row justify-content-end col mb-3">
                             
                                 <div class="col-sm-3 justify-content-end">
-                                    <a href="/receipt"><button type="button" class="btn btn-success" id="pay" onclick="">Pagar</button></a>     
+                                    <a href="/cart/receipt"><button type="button" class="btn btn-success" id="pay" onclick="">Pagar</button></a>     
                                 </div>
                             </div>
                         </div>
