@@ -15,6 +15,7 @@ const total = function () {
 };
 router.get('/', (req, res) => {
   let products = require(path.join(__dirname,'\\..\\db\\','\products.json'));
+  // console.log(products);
   const subtotal = total();
   const iva = subtotal * 0.19;
   const totalReceipt = subtotal + iva;
