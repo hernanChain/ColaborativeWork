@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const rootDir = require('../util/path');
 const path = require('path');
-let products = require('../db/products.json');
+// let products = require('../db/products.json');
 let cart = require('../db/cart');
 const fs = require('fs');
 let weightAllow=true;
@@ -14,13 +14,14 @@ const total = function () {
   return total;
 };
 router.get('/', (req, res) => {
-  // console.log('3-----> ',products);
+  console.log('hola');
+  const products = require('../db/products.json');
   const subtotal = total();
   const iva = subtotal * 0.19;
   const totalReceipt = subtotal + iva;
   res.render('cart', {
     path: '/cart',
-    products: products,
+    products: require('../db/products.json'),
     flag: weightAllow,
     name: 'CARRITO DE COMPRAS',
     cart: cart,
@@ -44,7 +45,7 @@ router.get('/receipt', (req, res) => {
 });
 
 router.post('/cleanCart', (req, res) => {
-  products = require('../db/products.json');
+  const products = require('../db/products.json');
   for(var i = 0; i < cart.length; i+=1){
     products.forEach(function(product1){
       if (product1.name===cart[i].name) {
@@ -64,6 +65,7 @@ router.post('/cleanCart', (req, res) => {
 });
 
 router.post('/addItem', (req, res) => {
+  const products = require('../db/products.json');
   const itemAdded = products.find((item) => item.name === req.body.itemSelected);
   const itemInCart = cart.find((item) => item.name === req.body.itemSelected);
   // console.log(itemAdded);

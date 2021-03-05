@@ -19,9 +19,8 @@ router.post('/toDelete', (req, res) => {
   products = products.filter((item) => item.name != req.body.toDelete);
   const data = JSON.stringify(products);
   try {
-    fs.writeFile(path.join(rootDir, 'db', 'products.json'), data, function(err) {
-          if (err) throw err;
-      });
+    console.log(data);
+    fs.writeFileSync(path.join(rootDir, 'db', 'products.json'), data);
   
   } catch (error) {
     console.error(error);
@@ -51,8 +50,8 @@ router.post('/addProduct', (req, res) => {
   } catch (error) {
     console.error(error);
   }
-  location.reload();
-  res.end('/products');
+  // location.reload();
+  res.redirect('/products');
 });
 
 module.exports = router;
