@@ -4,7 +4,7 @@ const path = require('path');
 // let products = require('../db/products.json');
 let cart = require('../db/cart');
 const fs = require('fs');
-let weightAllow=true;
+let weightAllow = true;
 
 const total = function () {
   let total = 0;
@@ -14,7 +14,7 @@ const total = function () {
   return total;
 };
 router.get('/', (req, res) => {
-  let products = require(path.join(__dirname,'\\..\\db\\','\products.json'));
+  let products = require(path.join(rootDir, 'db', 'products.json'));
   // console.log(products);
   const subtotal = total();
   const iva = subtotal * 0.19;
@@ -45,17 +45,17 @@ router.get('/receipt', (req, res) => {
 });
 
 router.post('/cleanCart', (req, res) => {
-  let products = require(path.join(__dirname,'\\..\\db\\','\products.json'));
-  for(var i = 0; i < cart.length; i+=1){
-    products.forEach(function(product1){
-      if (product1.name===cart[i].name) {
+  let products = require(path.join(rootDir, 'db', 'products.json'));
+  for (var i = 0; i < cart.length; i += 1) {
+    products.forEach(function (product1) {
+      if (product1.name === cart[i].name) {
         product1.stock -= parseInt(cart[i].weight);
       }
-    })
+    });
 
     const data = JSON.stringify(products);
     try {
-      fs.writeFileSync(path.join(__dirname,'\\..\\db\\','\products.json'), data);
+      fs.writeFileSync(path.join(rootDir, 'db', 'products.json'), data);
     } catch (error) {
       console.error(error);
     }
@@ -65,15 +65,15 @@ router.post('/cleanCart', (req, res) => {
 });
 
 router.post('/addItem', (req, res) => {
-  const products = require(path.join(__dirname,'\\..\\db\\','\products.json'));
+  const products = require(path.join(rootDir, 'db', 'products.json'));
   const itemAdded = products.find((item) => item.name === req.body.itemSelected);
   const itemInCart = cart.find((item) => item.name === req.body.itemSelected);
   // console.log(itemAdded);
   // console.log(itemInCart.weight);
-  weightAllow=true;
-  if (!itemInCart ) {
-      if (itemAdded.stock>=parseInt(req.body.weightItem)) {
-        const newItem = {
+  weightAllow = true;
+  if (!itemInCart) {
+    if (itemAdded.stock >= parseInt(req.body.weightItem)) {
+      const newItem = {
         name: req.body.itemSelected,
         weight: req.body.weightItem,
         price: itemAdded.price,
@@ -81,16 +81,16 @@ router.post('/addItem', (req, res) => {
       };
       cart.push(newItem);
     } else {
-//primer ingreso
-      weightAllow=false;
+      //primer ingreso
+      weightAllow = false;
     }
   } else {
-    if (itemAdded.stock>=(parseInt(itemInCart.weight) + parseInt(req.body.weightItem))) {
-        itemInCart.weight = parseInt(itemInCart.weight) + parseInt(req.body.weightItem);
-        itemInCart.total += parseInt(req.body.weightItem) * itemAdded.price;
+    if (itemAdded.stock >= parseInt(itemInCart.weight) + parseInt(req.body.weightItem)) {
+      itemInCart.weight = parseInt(itemInCart.weight) + parseInt(req.body.weightItem);
+      itemInCart.total += parseInt(req.body.weightItem) * itemAdded.price;
     } else {
-//primer ingreso
-      weightAllow=false;
+      //primer ingreso
+      weightAllow = false;
     }
   }
   res.redirect('/cart');

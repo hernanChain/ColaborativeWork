@@ -2,7 +2,7 @@ const router = require('express').Router();
 const rootDir = require('../util/path');
 const path = require('path');
 const fs = require('fs');
-let products = require(path.join(__dirname,'\\..\\db\\','\products.json'));
+let products = require(path.join(rootDir, 'db', 'products.json'));
 
 router.get('/', (req, res) => {
   res.render('products', {
@@ -12,23 +12,6 @@ router.get('/', (req, res) => {
     isThereCart: false,
   });
 });
-
-// router.post('/toDelete', (req, res) => {
-//   const productExists = products.find(
-//     (product) => product.name === req.body.toDelete,
-//   );
-//   if (productExists) {
-//     productExists.stock = parseInt(0);
-//   }
-//   products = products.filter((item) => item.name != req.body.toDelete);
-//   const data = JSON.stringify(products);
-//   fs.writeFile(path.join(__dirname,'\\..\\db\\','\products.json'), data, function(err) {
-//     if(err) return console.error(err);
-//   });
-//   console.log('delete---> ',products);
-
-//   res.redirect('/');
-// });
 
 router.post('/addProduct', (req, res) => {
   const productExists = products.find(
@@ -49,10 +32,9 @@ router.post('/addProduct', (req, res) => {
 
   const data = JSON.stringify(products);
 
-  fs.writeFile(path.join(__dirname,'\\..\\db\\','\products.json'), data, function(err) {
-    if(err) return console.error(err);
+  fs.writeFile(path.join(path.join(rootDir, 'db', 'products.json')), data, function (err) {
+    if (err) return console.error(err);
   });
-  // console.log('add---> ',products);
   res.redirect('/');
 });
 
