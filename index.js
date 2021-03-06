@@ -16,9 +16,7 @@ app.use('/cart', cartRoutes);
 app.use('/', productsRoutes);
 
 app.use((req, res, next) => {
-  // res.send('404: Page Not Found');
-  res.sendFile(path.join(__dirname,'views/error.html'));
-  // res.render(__dirname,'views/error.html');
+  res.render('error');
 });
 
 app.listen(app.get('port'), (req, res) => {

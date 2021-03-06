@@ -9,7 +9,7 @@
     ]
   },
   "scripts": {
-    "start": "nodemon index.js --ignore ./db/"
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
@@ -33,7 +33,5 @@
     "ejs": "^3.1.6",
     "express": "^4.17.1"
   },
-  "devDependencies": {
-    "nodemon": "^2.0.7"
-  }
+  "devDependencies": {}
 }
